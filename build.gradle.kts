@@ -27,10 +27,20 @@ dependencies {
 	// MONGODB
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
+	// 코틀린 기본 라이브러리
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+	// 💡 리플렉션 기능
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	// test db
+	testImplementation("com.h2database:h2")
+
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
