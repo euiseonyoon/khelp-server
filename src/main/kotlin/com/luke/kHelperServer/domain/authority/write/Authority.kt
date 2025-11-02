@@ -8,7 +8,11 @@ import org.hibernate.Hibernate
 
 @Entity
 class Authority(
-    @Column(nullable = false, unique = true) @Embedded
+    @Embedded
+    @AttributeOverride(
+        name = "name",  // Role의 필드명
+        column = Column(name = "role", nullable = false, unique = true)  // 원하는 DB 컬럼명
+    )
     var role: Role,
 
     @Column(nullable = false, unique = true)

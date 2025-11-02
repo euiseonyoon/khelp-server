@@ -3,6 +3,7 @@ package com.luke.kHelperServer.domain.account.write
 import com.luke.kHelperServer.domain.BaseEntity
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
+import com.luke.kHelperServer.domain.account.PasswordHash
 import com.luke.kHelperServer.domain.authority.write.Authority
 import jakarta.persistence.*
 import org.hibernate.Hibernate
@@ -11,11 +12,19 @@ import org.hibernate.annotations.NaturalId
 @Entity
 @EntityListeners(AccountEntityListener::class)
 class Account(
-    @Column(nullable = false, unique = true) @NaturalId @Embedded
+    @NaturalId @Embedded
+    @AttributeOverride(
+        name = "address",
+        column = Column(name = "email", nullable = false, unique = true)
+    )
     val email: Email,
 
-    @Column(nullable = false)
-    var passwordHash: String,
+    @Embedded
+    @AttributeOverride(
+        name = "hash",
+        column = Column(name = "password_hash", nullable = false)
+    )
+    var passwordHash: PasswordHash,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "authority_id", nullable = false)

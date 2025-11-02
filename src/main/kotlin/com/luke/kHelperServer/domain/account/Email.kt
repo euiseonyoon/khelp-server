@@ -3,7 +3,7 @@ package com.luke.kHelperServer.domain.account
 import jakarta.persistence.Embeddable
 
 @Embeddable
-data class Email(
+class Email(
     val address: String
 ) {
     init {

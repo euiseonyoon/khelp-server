@@ -1,6 +1,7 @@
 package com.luke.kHelperServer.domain.db_sync
 
 import com.luke.kHelperServer.domain.account.Email
+import com.luke.kHelperServer.domain.account.PasswordHash
 import com.luke.kHelperServer.domain.account.event.AccountCreatedEvent
 import com.luke.kHelperServer.domain.account.read.AccountSyncHandler
 import com.luke.kHelperServer.domain.account.write.Account
@@ -25,7 +26,7 @@ class EntitySyncHandlerManagerTest {
         val event = AccountCreatedEvent(
             Account(
                 email = Email("test@test.com"),
-                passwordHash = "pswd",
+                passwordHash = PasswordHash("pswd"),
                 authority = Authority(Role("ROLE_USER"), 100),
             )
         )

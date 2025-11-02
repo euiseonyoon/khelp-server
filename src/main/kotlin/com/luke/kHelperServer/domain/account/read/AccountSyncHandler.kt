@@ -34,7 +34,7 @@ class AccountSyncHandler(
         val document = AccountDocument(
             accountId = account.id,
             email = account.email.address,
-            passwordHash = account.passwordHash,
+            passwordHash = account.passwordHash.hash,
             authority = AuthorityDocument.fromAuthority(account.authority),
             nickname = account.nickname,
             enabled = account.enabled,
@@ -57,7 +57,7 @@ class AccountSyncHandler(
             id = existing?.id, // MongoDB _id 유지 (업데이트)
             accountId = account.id,
             email = account.email.address,
-            passwordHash = account.passwordHash,
+            passwordHash = account.passwordHash.hash,
             authority = AuthorityDocument.fromAuthority(account.authority),
             nickname = account.nickname,
             enabled = account.enabled,
