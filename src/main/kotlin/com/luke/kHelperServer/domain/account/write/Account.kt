@@ -9,6 +9,7 @@ import org.hibernate.Hibernate
 import org.hibernate.annotations.NaturalId
 
 @Entity
+@EntityListeners(AccountEntityListener::class)
 class Account(
     @Column(nullable = false, unique = true) @NaturalId @Embedded
     val email: Email,
