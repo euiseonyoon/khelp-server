@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      # 임베디드 MongoDB 라이브러리를 사용하는 경우 (예: Flapdoodle)
+      # host와 port 설정을 비워두거나 기본값 사용
+      host: localhost
+      port: 27017 # 실제 MongoDB가 필요 없다면 이 설정은 무시되도록 합니다.
