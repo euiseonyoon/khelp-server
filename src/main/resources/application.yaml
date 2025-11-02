@@ -4,4 +4,6 @@ spring:
   profiles:
     active: dev
   config:
-    import: classpath:database-${spring.profiles.active}.yaml
+    import:
+      - classpath:database-${spring.profiles.active}.yaml
+      - classpath:mongodb-${spring.profiles.active}.yaml

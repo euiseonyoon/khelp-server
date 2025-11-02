@@ -20,8 +20,27 @@ services:
     networks:
       - khelp-network
 
+  mongodb:
+    image: mongo:7
+    container_name: khelp-mongodb
+    ports:
+      - "${MONGODB_PORT}:27017"
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
+    volumes:
+      - khelp_mongodb:/data/db
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - khelp-network
+
 volumes:
   khelp_postgres:
+    driver: local
+  khelp_mongodb:
     driver: local
 
 networks:
