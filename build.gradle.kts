@@ -32,7 +32,10 @@ dependencies {
 
 	// 💡 리플렉션 기능
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-    
+
+	// OAuth2 Resource Server (NimbusJwtDecoder 포함)
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+
     // validation
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
