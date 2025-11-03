@@ -39,6 +39,9 @@ dependencies {
     // validation
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
+	// REDIS
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
 	// jwt
 	val jjwtVersion = "0.11.5"
 	implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")

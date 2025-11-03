@@ -37,10 +37,27 @@ services:
     networks:
       - khelp-network
 
+  redis:
+    image: redis:7-alpine
+    container_name: khelp-redis
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - khelp_redis:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - khelp-network
+
 volumes:
   khelp_postgres:
     driver: local
   khelp_mongodb:
+    driver: local
+  khelp_redis:
     driver: local
 
 networks:

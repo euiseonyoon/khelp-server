@@ -7,4 +7,5 @@ spring:
     import:
       - classpath:${spring.profiles.active}/database.yaml
       - classpath:${spring.profiles.active}/mongodb.yaml
+      - classpath:${spring.profiles.active}/redis.yaml
       - classpath:${spring.profiles.active}/jwt.yaml
