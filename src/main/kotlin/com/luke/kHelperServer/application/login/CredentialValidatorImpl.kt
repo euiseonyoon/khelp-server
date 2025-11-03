@@ -4,7 +4,10 @@ import com.luke.kHelperServer.application.account.provided_port.AccountWriter
 import com.luke.kHelperServer.application.auto_register.provided_port.AutoRegisterer
 import com.luke.kHelperServer.application.jwt.provided_port.JwtTokenService
 import com.luke.kHelperServer.application.login.provided_port.CredentialValidator
+import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
+import com.luke.kHelperServer.domain.account.PasswordEncoder
+import com.luke.kHelperServer.domain.account.excpetions.AccountNotFoundException
 import com.luke.kHelperServer.domain.login.GeneratedTokens
 import jakarta.validation.constraints.NotEmpty
 import org.springframework.stereotype.Service
@@ -18,6 +21,7 @@ class CredentialValidatorImpl(
     private val oauthAuthenticatorManager: OauthAuthenticatorManager,
     private val autoRegisterer: AutoRegisterer,
     private val jwtTokenService: JwtTokenService,
+    private val passwordEncoder: PasswordEncoder,
 ): CredentialValidator {
     @Transactional
     override fun loginByOauth(
@@ -27,6 +31,18 @@ class CredentialValidatorImpl(
     ): GeneratedTokens {
         val email = oauthAuthenticatorManager.getAuthenticator(oauthVendor).getEmailFromToken(token)
         val accountDto = accountWriter.findByEmail(email) ?: autoRegisterer.autoRegisterAccount(email, oauthVendor)
+
+        return GeneratedTokens(
+            accessToken = jwtTokenService.createAccessToken(accountDto.account),
+            refreshToken = jwtTokenService.createRefreshToken(accountDto.account)
+        )
+    }
+
+    @Transactional(readOnly = true)
+    override fun loginByEmailPassword(email: Email, rawPassword: String): GeneratedTokens? {
+        val accountDto = accountWriter.findByEmail(email) ?: throw AccountNotFoundException(email)
+        val match = passwordEncoder.matches(rawPassword, accountDto.account.passwordHash)
+        if (!match) return null
 
         return GeneratedTokens(
             accessToken = jwtTokenService.createAccessToken(accountDto.account),
