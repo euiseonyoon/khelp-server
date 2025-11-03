@@ -5,6 +5,6 @@ spring:
     active: dev
   config:
     import:
-      - classpath:database-${spring.profiles.active}.yaml
-      - classpath:mongodb-${spring.profiles.active}.yaml
-      - classpath:jwt-${spring.profiles.active}.yaml
+      - classpath:${spring.profiles.active}/database.yaml
+      - classpath:${spring.profiles.active}/mongodb.yaml
+      - classpath:${spring.profiles.active}/jwt.yaml
