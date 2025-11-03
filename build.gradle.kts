@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "3.5.7"
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "1.9.25"
+	kotlin("plugin.serialization") version "1.9.25"
 }
 
 group = "com.luke"
@@ -41,6 +42,9 @@ dependencies {
 
 	// REDIS
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+	// kotlin serializer
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
 	// jwt
 	val jjwtVersion = "0.11.5"
