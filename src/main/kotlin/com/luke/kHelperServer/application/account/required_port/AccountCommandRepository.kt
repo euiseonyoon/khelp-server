@@ -7,4 +7,6 @@ interface AccountCommandRepository {
     fun save(account: Account): Account
 
     fun existsByEmail(email: Email): Boolean
+
+    fun findByEmail(email: Email): Account?
 }

@@ -19,4 +19,8 @@ class AccountJpaCommandRepository(
     override fun existsByEmail(email: Email): Boolean {
         return accountJpaRepository.existsByEmail(email)
     }
+
+    override fun findByEmail(email: Email): Account? {
+        return accountJpaRepository.findByEmail(email)
+    }
 }

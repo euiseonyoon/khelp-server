@@ -35,6 +35,11 @@ class AccountCommandService(
         return AccountDto(accountCommandRepository.save(newAccount))
     }
 
+    @Transactional(readOnly = true)
+    override fun findByEmail(email: Email): AccountDto? {
+        return accountCommandRepository.findByEmail(email)?.let { AccountDto(it) }
+    }
+
     private fun checkDuplicateEmail(email: Email) {
         if (accountCommandRepository.existsByEmail(email)) {
             throw DuplicatedEmailException(email)
