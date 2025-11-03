@@ -32,6 +32,9 @@ dependencies {
 
 	// 💡 리플렉션 기능
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+    
+    // validation
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")

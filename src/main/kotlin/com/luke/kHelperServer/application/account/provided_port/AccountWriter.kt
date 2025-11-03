@@ -1,0 +1,8 @@
+package com.luke.kHelperServer.application.account.provided_port
+
+import com.luke.kHelperServer.application.account.dto.AccountDto
+import com.luke.kHelperServer.domain.account.request.AccountCreateRequest
+
+interface AccountWriter {
+    fun registerAccount(request: AccountCreateRequest): AccountDto
+}

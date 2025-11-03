@@ -1,0 +1,43 @@
+package com.luke.kHelperServer.application.account
+
+import com.luke.kHelperServer.application.account.dto.AccountDto
+import com.luke.kHelperServer.application.account.provided_port.AccountWriter
+import com.luke.kHelperServer.application.account.required_port.AccountCommandRepository
+import com.luke.kHelperServer.domain.account.Email
+import com.luke.kHelperServer.domain.account.PasswordEncoder
+import com.luke.kHelperServer.domain.account.excpetions.DuplicatedEmailException
+import com.luke.kHelperServer.domain.account.request.AccountCreateRequest
+import com.luke.kHelperServer.domain.account.write.Account
+import jakarta.validation.Valid
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.validation.annotation.Validated
+
+@Service
+@Validated
+class AccountCommandService(
+    private val accountCommandRepository: AccountCommandRepository,
+    private val passwordEncoder: PasswordEncoder,
+) : AccountWriter {
+    @Transactional
+    override fun registerAccount(@Valid request: AccountCreateRequest): AccountDto {
+        checkDuplicateEmail(request.email)
+
+        val newAccount = Account(
+            email = request.email,
+            passwordHash = passwordEncoder.encode(request.rawPassword),
+            nickname = request.nickname,
+            authority = request.authority,
+            enabled = true,
+            oauth = request.oauthVendor,
+        )
+
+        return AccountDto(accountCommandRepository.save(newAccount))
+    }
+
+    private fun checkDuplicateEmail(email: Email) {
+        if (accountCommandRepository.existsByEmail(email)) {
+            throw DuplicatedEmailException(email)
+        }
+    }
+}
