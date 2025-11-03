@@ -1,5 +1,6 @@
 package com.luke.kHelperServer.domain.authority
 
+import com.luke.kHelperServer.domain.authority.exception.AuthorityPrefixException
 import jakarta.persistence.Embeddable
 
 @Embeddable

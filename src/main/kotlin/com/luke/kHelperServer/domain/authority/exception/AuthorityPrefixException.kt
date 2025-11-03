@@ -1,4 +1,4 @@
-package com.luke.kHelperServer.domain.authority
+package com.luke.kHelperServer.domain.authority.exception
 
 import com.luke.kHelperServer.common.CustomUncheckedException
 
