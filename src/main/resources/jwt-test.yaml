@@ -1,0 +1,9 @@
+jwt:
+  # Test environment - fixed test secrets
+  access-secret: RkF4SjdSblpTdU5sZ1hieUFuWk92SEx5Q1dyaTNQWjU=
+  refresh-secret: SzhxT3p6Z1NnVE1mZ3VjRkRRaU9vUkNqVlZ1TllYQw==
+  issuer: ${JWT_ISSUER:khelp-server-test}
+
+  # Token expiration time (from environment variables)
+  access-duration-ms: ${JWT_ACCESS_DURATION_MS:3600000}        # 1 hour (default)
+  refresh-duration-ms: ${JWT_REFRESH_DURATION_MS:604800000}    # 7 days (default)

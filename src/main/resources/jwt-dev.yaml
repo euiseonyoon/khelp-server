@@ -1,0 +1,9 @@
+jwt:
+  # Development environment - simple secrets for development
+  access-secret: ${JWT_ACCESS_SECRET}
+  refresh-secret: ${JWT_REFRESH_SECRET}
+  issuer: ${JWT_ISSUER:khelp-server-dev}
+
+  # Token expiration time (from environment variables)
+  access-duration-ms: ${JWT_ACCESS_DURATION_MS:3600000}        # 1 hour (default)
+  refresh-duration-ms: ${JWT_REFRESH_DURATION_MS:604800000}    # 7 days (default)
