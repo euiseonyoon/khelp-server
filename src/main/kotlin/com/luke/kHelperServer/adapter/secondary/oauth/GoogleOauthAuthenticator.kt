@@ -3,7 +3,8 @@ package com.luke.kHelperServer.adapter.secondary.oauth
 import com.luke.kHelperServer.application.auth.login.required_port.OauthAuthenticator
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
-import com.luke.kHelperServer.domain.login.LogInFailedException
+import com.luke.kHelperServer.domain.exception.BizException
+import com.luke.kHelperServer.domain.exception.ErrorMessages
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.stereotype.Component
 
@@ -22,7 +23,7 @@ class GoogleOauthAuthenticator : OauthAuthenticator {
             return Email(emailAddress)
         } catch (e: Exception) {
             // JWT 검증 실패 (서명 오류, 만료, 유효하지 않은 클레임 등)
-            throw LogInFailedException("Invalid ID Token: ${e.message}")
+            throw BizException(ErrorMessages.INVALID_CREDENTIAL)
         }
     }
 }

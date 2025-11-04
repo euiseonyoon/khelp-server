@@ -1,6 +1,5 @@
 package com.luke.kHelperServer.domain.authority
 
-import com.luke.kHelperServer.domain.authority.exception.AuthorityPrefixException
 import jakarta.persistence.Embeddable
 
 @Embeddable
@@ -9,7 +8,7 @@ class Role(
 ) {
     init {
         if (!name.startsWith(ROLE_PREFIX)) {
-            throw AuthorityPrefixException(name)
+            throw IllegalArgumentException("${name}은 잘못된 권한 이름입니다.")
         }
     }
 

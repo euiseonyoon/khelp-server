@@ -5,9 +5,10 @@ import com.luke.kHelperServer.application.account.provided_port.AccountWriter
 import com.luke.kHelperServer.application.account.required_port.AccountCommandRepository
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.PasswordEncoder
-import com.luke.kHelperServer.domain.account.excpetions.DuplicatedEmailException
 import com.luke.kHelperServer.domain.account.request.AccountCreateRequest
 import com.luke.kHelperServer.domain.account.write.Account
+import com.luke.kHelperServer.domain.exception.BizException
+import com.luke.kHelperServer.domain.exception.ErrorMessages
 import jakarta.validation.Valid
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -42,7 +43,7 @@ class AccountCommandService(
 
     private fun checkDuplicateEmail(email: Email) {
         if (accountCommandRepository.existsByEmail(email)) {
-            throw DuplicatedEmailException(email)
+            throw BizException(ErrorMessages.DUPLICATED_EMAIL)
         }
     }
 }

@@ -7,7 +7,6 @@ import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
 import com.luke.kHelperServer.domain.login.GeneratedTokens
 import com.luke.kHelperServer.domain.login.LoginResult
-import com.luke.kHelperServer.domain.login.exception.LoginFailedException
 import jakarta.validation.constraints.NotEmpty
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -26,12 +25,8 @@ class LoginServiceImpl(
         token: String,
         oauthVendor: OauthVendor,
     ): GeneratedTokens {
-        try {
-            val loginResult = credentialValidator.loginByOauth(token, oauthVendor)
-            return getTokensAndSaveRefreshToken(loginResult)
-        } catch (e: Exception) {
-            throw LoginFailedException("로그인 실패")
-        }
+        val loginResult = credentialValidator.loginByOauth(token, oauthVendor)
+        return getTokensAndSaveRefreshToken(loginResult)
     }
 
     @Transactional(readOnly = true)
@@ -40,12 +35,8 @@ class LoginServiceImpl(
         @NotEmpty
         rawPassword: String,
     ): GeneratedTokens {
-        try {
-            val loginResult = credentialValidator.loginByEmailPassword(email, rawPassword)
-            return getTokensAndSaveRefreshToken(loginResult)
-        } catch (e: Exception) {
-            throw LoginFailedException("로그인 실패")
-        }
+        val loginResult = credentialValidator.loginByEmailPassword(email, rawPassword)
+        return getTokensAndSaveRefreshToken(loginResult)
     }
 
     private fun getTokensAndSaveRefreshToken(loginResult: LoginResult): GeneratedTokens {

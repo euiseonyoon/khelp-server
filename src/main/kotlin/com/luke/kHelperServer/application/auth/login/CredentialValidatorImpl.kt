@@ -8,10 +8,10 @@ import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
 import com.luke.kHelperServer.domain.account.PasswordEncoder
 import com.luke.kHelperServer.domain.account.write.Account
+import com.luke.kHelperServer.domain.exception.BizException
+import com.luke.kHelperServer.domain.exception.ErrorMessages
 import com.luke.kHelperServer.domain.login.GeneratedTokens
 import com.luke.kHelperServer.domain.login.LoginResult
-import com.luke.kHelperServer.domain.login.exception.LoginFailAccountNotFoundException
-import com.luke.kHelperServer.domain.login.exception.LoginFailedPasswordMismatchException
 import org.springframework.stereotype.Service
 import org.springframework.validation.annotation.Validated
 
@@ -36,9 +36,9 @@ class CredentialValidatorImpl(
 
     override fun loginByEmailPassword(email: Email, rawPassword: String): LoginResult {
         val accountDto = accountWriter.findByEmail(email)
-            ?: throw LoginFailAccountNotFoundException("유저를 찾을수 없습니다. email=${email.address}")
+            ?: throw BizException(ErrorMessages.ACCOUNT_NOT_FOUND)
         val match = passwordEncoder.matches(rawPassword, accountDto.account.passwordHash)
-        if (!match) throw LoginFailedPasswordMismatchException("비밀번호가 틀렸습니다. email=${email.address}")
+        if (!match) throw BizException(ErrorMessages.INVALID_CREDENTIAL)
 
         return createLoginResult(accountDto.account)
     }

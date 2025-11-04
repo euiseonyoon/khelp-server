@@ -10,8 +10,9 @@ import com.luke.kHelperServer.domain.account.OauthVendor
 import com.luke.kHelperServer.domain.account.request.AccountCreateRequest
 import com.luke.kHelperServer.domain.authority.ROLE_USER
 import com.luke.kHelperServer.domain.authority.Role
-import com.luke.kHelperServer.domain.authority.exception.AuthorityNotFoundException
 import com.luke.kHelperServer.application.auth.auto_register.required_port.PasswordGenerator
+import com.luke.kHelperServer.domain.exception.BizException
+import com.luke.kHelperServer.domain.exception.ErrorMessages
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -25,7 +26,8 @@ class OauthAutoRegisterer(
     @Transactional
     override fun autoRegisterAccount(email: Email, oauthVendor: OauthVendor): AccountDto {
         val targetRole = Role(ROLE_USER)
-        val userRole = authorityCommandRepository.findByRole(targetRole) ?: throw AuthorityNotFoundException(targetRole)
+        val userRole = authorityCommandRepository.findByRole(targetRole)
+            ?: throw BizException(ErrorMessages.AUTHORITY_NOT_FOUND)
         val rawPassword = passwordGenerator.generatePassword()
 
         val request = AccountCreateRequest(
