@@ -2,7 +2,7 @@ package com.luke.kHelperServer.domain.account.write
 
 import com.luke.kHelperServer.domain.account.event.AccountCreatedEvent
 import com.luke.kHelperServer.domain.account.event.AccountUpdatedEvent
-import com.luke.kHelperServer.domain.db_sync.BaseEntityListener
+import com.luke.kHelperServer.domain.BaseEntityListener
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 

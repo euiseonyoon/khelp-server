@@ -1,7 +1,5 @@
-package com.luke.kHelperServer.domain.db_sync
+package com.luke.kHelperServer.domain
 
-import com.luke.kHelperServer.domain.BaseEntity
-import com.luke.kHelperServer.domain.WriteDbCommitedEvent
 import jakarta.persistence.PostPersist
 import jakarta.persistence.PostRemove
 import jakarta.persistence.PostUpdate

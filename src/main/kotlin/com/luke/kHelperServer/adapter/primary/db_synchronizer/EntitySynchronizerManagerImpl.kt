@@ -1,18 +1,19 @@
-package com.luke.kHelperServer.domain.db_sync
+package com.luke.kHelperServer.adapter.primary.db_synchronizer
 
+import com.luke.kHelperServer.application.db_synchronizer.provided_port.EntitySynchronizer
 import com.luke.kHelperServer.domain.WriteDbCommitedEvent
 import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
 
 @Component
-class EntitySyncHandlerManagerImpl(
-    syncHandlers: List<EntitySyncHandler<*>>
-) : EntitySyncHandlerManager {
-    private val handlerMap2: Map<String, EntitySyncHandler<*>> = syncHandlers.mapNotNull { handler ->
+class EntitySynchronizerManagerImpl(
+    syncHandlers: List<EntitySynchronizer<*>>
+) : EntitySynchronizerManager {
+    private val handlerMap2: Map<String, EntitySynchronizer<*>> = syncHandlers.mapNotNull { handler ->
         handler.getHandlingMessageType().qualifiedName?.let { name -> name to handler }
     }.toMap()
 
-    override fun findHandler(event: WriteDbCommitedEvent): EntitySyncHandler<*>? {
+    override fun findSynchronizer(event: WriteDbCommitedEvent): EntitySynchronizer<*>? {
         val superTypes = (event::class as KClass<*>).supertypes
         superTypes
             .mapNotNull { kType -> kType.classifier as? KClass<*> }

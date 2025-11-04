@@ -1,4 +1,4 @@
-package com.luke.kHelperServer.domain.db_sync
+package com.luke.kHelperServer.adapter.primary.db_synchronizer
 
 import com.luke.kHelperServer.domain.WriteDbCommitedEvent
 import org.slf4j.LoggerFactory
@@ -10,17 +10,17 @@ import org.springframework.transaction.event.TransactionPhase
 import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
-class WriteDbEventHandlerImpl(
-    private val syncHandlerManager: EntitySyncHandlerManager,
-): WriteDbEventHandler {
-    private val logger = LoggerFactory.getLogger(WriteDbEventHandlerImpl::class.java)
+class ReadDbSynchronizerImpl(
+    private val synchronizerManager: EntitySynchronizerManager,
+): ReadDbSynchronizer {
+    private val logger = LoggerFactory.getLogger(ReadDbSynchronizerImpl::class.java)
 
     @Async
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     override fun handleWriteDbCommitedEvent(event: WriteDbCommitedEvent) {
-        syncHandlerManager.findHandler(event)?.let { syncHandler ->
-            syncHandler.handle(event)
+        synchronizerManager.findSynchronizer(event)?.let { synchronizer ->
+            synchronizer.synchronizeReadDb(event)
 
             logger.info("Successfully synced Account to Read DB: {}", event::class.simpleName)
         } ?: run { fallBack(event) }
