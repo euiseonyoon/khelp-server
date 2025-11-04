@@ -15,6 +15,16 @@ class GlobalExceptionHandler {
         return GlobalResponse.createBizExceptionResponse(e, HttpStatus.BAD_REQUEST)
     }
 
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgumentException(e: IllegalArgumentException): ResponseEntity<GlobalResponse<Nothing>> {
+        return GlobalResponse.createExceptionResponse(e, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(IllegalStateException::class)
+    fun handleIllegalStateException(e: IllegalStateException): ResponseEntity<GlobalResponse<Nothing>> {
+        return GlobalResponse.createExceptionResponse(e, HttpStatus.CONFLICT)
+    }
+
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ResponseEntity<GlobalResponse<Nothing>> {
         val response = GlobalResponse(
