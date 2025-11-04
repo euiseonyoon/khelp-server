@@ -1,9 +1,9 @@
-package com.luke.kHelperServer.application.login
+package com.luke.kHelperServer.application.auth.login
 
 import com.luke.kHelperServer.application.account.provided_port.AccountWriter
-import com.luke.kHelperServer.application.auto_register.provided_port.AutoRegisterer
-import com.luke.kHelperServer.application.jwt.provided_port.JwtTokenService
-import com.luke.kHelperServer.application.login.provided_port.CredentialValidator
+import com.luke.kHelperServer.application.auth.auto_register.provided_port.AutoRegisterer
+import com.luke.kHelperServer.application.auth.jwt.provided_port.JwtTokenService
+import com.luke.kHelperServer.application.auth.login.provided_port.CredentialValidator
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
 import com.luke.kHelperServer.domain.account.PasswordEncoder

@@ -1,4 +1,4 @@
-package com.luke.kHelperServer.application.login.provided_port
+package com.luke.kHelperServer.application.auth.login.provided_port
 
 import com.luke.kHelperServer.domain.login.RefreshToken
 import jakarta.servlet.http.HttpServletResponse

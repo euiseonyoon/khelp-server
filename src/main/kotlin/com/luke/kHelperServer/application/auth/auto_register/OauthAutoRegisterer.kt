@@ -1,17 +1,17 @@
-package com.luke.kHelperServer.application.auto_register
+package com.luke.kHelperServer.application.auth.auto_register
 
 import com.luke.kHelperServer.application.account.dto.AccountDto
 import com.luke.kHelperServer.application.account.provided_port.AccountWriter
-import com.luke.kHelperServer.application.auto_register.provided_port.AutoRegisterer
-import com.luke.kHelperServer.application.auto_register.required_port.AuthorityCommandRepository
-import com.luke.kHelperServer.application.auto_register.required_port.EmailSender
+import com.luke.kHelperServer.application.auth.auto_register.provided_port.AutoRegisterer
+import com.luke.kHelperServer.application.auth.auto_register.required_port.AuthorityCommandRepository
+import com.luke.kHelperServer.application.auth.auto_register.required_port.EmailSender
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
 import com.luke.kHelperServer.domain.account.request.AccountCreateRequest
 import com.luke.kHelperServer.domain.authority.ROLE_USER
 import com.luke.kHelperServer.domain.authority.Role
 import com.luke.kHelperServer.domain.authority.exception.AuthorityNotFoundException
-import com.luke.kHelperServer.application.auto_register.required_port.PasswordGenerator
+import com.luke.kHelperServer.application.auth.auto_register.required_port.PasswordGenerator
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

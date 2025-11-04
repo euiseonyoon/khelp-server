@@ -1,4 +1,4 @@
-package com.luke.kHelperServer.application.jwt.provided_port
+package com.luke.kHelperServer.application.auth.jwt.provided_port
 
 import com.luke.kHelperServer.domain.account.write.Account
 import com.luke.kHelperServer.domain.login.AccessToken

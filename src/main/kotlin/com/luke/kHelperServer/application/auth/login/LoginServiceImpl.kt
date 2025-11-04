@@ -1,8 +1,8 @@
-package com.luke.kHelperServer.application.login
+package com.luke.kHelperServer.application.auth.login
 
-import com.luke.kHelperServer.application.login.provided_port.CredentialValidator
-import com.luke.kHelperServer.application.login.provided_port.LoginService
-import com.luke.kHelperServer.application.login.provided_port.LoginSuccessHandler
+import com.luke.kHelperServer.application.auth.login.provided_port.CredentialValidator
+import com.luke.kHelperServer.application.auth.login.provided_port.LoginService
+import com.luke.kHelperServer.application.auth.login.provided_port.LoginSuccessHandler
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
 import com.luke.kHelperServer.domain.login.GeneratedTokens

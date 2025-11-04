@@ -1,6 +1,6 @@
 package com.luke.kHelperServer.adapter.secondary.oauth
 
-import com.luke.kHelperServer.application.login.required_port.OauthAuthenticator
+import com.luke.kHelperServer.application.auth.login.required_port.OauthAuthenticator
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
 import com.luke.kHelperServer.domain.login.LogInFailedException

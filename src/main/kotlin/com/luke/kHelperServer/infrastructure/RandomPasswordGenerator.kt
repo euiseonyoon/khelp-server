@@ -1,6 +1,6 @@
 package com.luke.kHelperServer.infrastructure
 
-import com.luke.kHelperServer.application.auto_register.required_port.PasswordGenerator
+import com.luke.kHelperServer.application.auth.auto_register.required_port.PasswordGenerator
 import com.luke.kHelperServer.domain.account.PASSWORD_MAX_LENGTH
 import com.luke.kHelperServer.domain.account.PASSWORD_MIN_LENGTH
 import org.springframework.stereotype.Component

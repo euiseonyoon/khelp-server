@@ -1,7 +1,7 @@
-package com.luke.kHelperServer.application.jwt
+package com.luke.kHelperServer.application.auth.jwt
 
-import com.luke.kHelperServer.application.jwt.provided_port.JwtTokenService
-import com.luke.kHelperServer.application.jwt.required_port.JwtTokenGenerator
+import com.luke.kHelperServer.application.auth.jwt.provided_port.JwtTokenService
+import com.luke.kHelperServer.application.auth.jwt.required_port.JwtTokenGenerator
 import com.luke.kHelperServer.domain.account.write.Account
 import com.luke.kHelperServer.domain.login.AccessToken
 import com.luke.kHelperServer.domain.login.RefreshToken

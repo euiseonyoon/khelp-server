@@ -1,7 +1,7 @@
 package com.luke.kHelperServer.adapter.secondary.redis.refresh_token
 
 import com.luke.kHelperServer.adapter.secondary.redis.shared.GenericRedisRepository
-import com.luke.kHelperServer.application.login.required_port.RefreshTokenRepository
+import com.luke.kHelperServer.application.auth.login.required_port.RefreshTokenRepository
 import com.luke.kHelperServer.domain.login.HashedRefreshToken
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.RedisTemplate
