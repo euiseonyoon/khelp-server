@@ -1,4 +1,4 @@
-package com.luke.kHelperServer.adapter.primary.webapi.v1.auth.login
+package com.luke.kHelperServer.adapter.primary.webapi.v1.auth
 
 import com.luke.kHelperServer.adapter.primary.webapi.v1.V1_LOGIN_URL
 import com.luke.kHelperServer.application.auth.login.provided_port.LoginService
