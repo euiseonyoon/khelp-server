@@ -7,11 +7,12 @@ import com.luke.kHelperServer.application.login.provided_port.CredentialValidato
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
 import com.luke.kHelperServer.domain.account.PasswordEncoder
-import com.luke.kHelperServer.domain.account.excpetions.AccountNotFoundException
+import com.luke.kHelperServer.domain.account.write.Account
 import com.luke.kHelperServer.domain.login.GeneratedTokens
-import jakarta.validation.constraints.NotEmpty
+import com.luke.kHelperServer.domain.login.LoginResult
+import com.luke.kHelperServer.domain.login.exception.LoginFailAccountNotFoundException
+import com.luke.kHelperServer.domain.login.exception.LoginFailedPasswordMismatchException
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import org.springframework.validation.annotation.Validated
 
 @Service
@@ -23,30 +24,32 @@ class CredentialValidatorImpl(
     private val jwtTokenService: JwtTokenService,
     private val passwordEncoder: PasswordEncoder,
 ): CredentialValidator {
-    @Transactional
     override fun loginByOauth(
-        @NotEmpty
         token: String,
         oauthVendor: OauthVendor
-    ): GeneratedTokens {
+    ): LoginResult {
         val email = oauthAuthenticatorManager.getAuthenticator(oauthVendor).getEmailFromToken(token)
         val accountDto = accountWriter.findByEmail(email) ?: autoRegisterer.autoRegisterAccount(email, oauthVendor)
 
-        return GeneratedTokens(
-            accessToken = jwtTokenService.createAccessToken(accountDto.account),
-            refreshToken = jwtTokenService.createRefreshToken(accountDto.account)
-        )
+        return createLoginResult(accountDto.account)
     }
 
-    @Transactional(readOnly = true)
-    override fun loginByEmailPassword(email: Email, rawPassword: String): GeneratedTokens? {
-        val accountDto = accountWriter.findByEmail(email) ?: throw AccountNotFoundException(email)
+    override fun loginByEmailPassword(email: Email, rawPassword: String): LoginResult {
+        val accountDto = accountWriter.findByEmail(email)
+            ?: throw LoginFailAccountNotFoundException("유저를 찾을수 없습니다. email=${email.address}")
         val match = passwordEncoder.matches(rawPassword, accountDto.account.passwordHash)
-        if (!match) return null
+        if (!match) throw LoginFailedPasswordMismatchException("비밀번호가 틀렸습니다. email=${email.address}")
 
-        return GeneratedTokens(
-            accessToken = jwtTokenService.createAccessToken(accountDto.account),
-            refreshToken = jwtTokenService.createRefreshToken(accountDto.account)
+        return createLoginResult(accountDto.account)
+    }
+
+    private fun createLoginResult(account: Account): LoginResult {
+        return LoginResult(
+            account = account,
+            generatedTokens = GeneratedTokens(
+                accessToken = jwtTokenService.createAccessToken(account),
+                refreshToken = jwtTokenService.createRefreshToken(account)
+            )
         )
     }
 }

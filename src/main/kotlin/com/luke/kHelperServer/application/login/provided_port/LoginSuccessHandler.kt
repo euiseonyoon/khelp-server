@@ -5,6 +5,4 @@ import jakarta.servlet.http.HttpServletResponse
 
 interface LoginSuccessHandler {
     fun saveRefreshToken(accountId: Long, refreshToken: RefreshToken)
-
-    fun setRefreshTokenOnCookie(response: HttpServletResponse, refreshToken: RefreshToken)
 }

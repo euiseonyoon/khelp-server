@@ -1,7 +1,6 @@
 package com.luke.kHelperServer.infrastructure
 
-import com.luke.kHelperServer.application.login.required_port.RefreshTokenCookieSetter
-import com.luke.kHelperServer.application.login.required_port.RefreshTokenCookieSetter.Companion.REFRESH_TOKEN_COOKIE_KEY
+import com.luke.kHelperServer.infrastructure.RefreshTokenCookieSetter.Companion.REFRESH_TOKEN_COOKIE_KEY
 import com.luke.kHelperServer.domain.login.RefreshToken
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
