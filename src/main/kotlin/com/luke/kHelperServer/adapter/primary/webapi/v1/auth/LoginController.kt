@@ -7,7 +7,7 @@ import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.login.EmailLoginRequest
 import com.luke.kHelperServer.domain.login.LoginResponse
 import com.luke.kHelperServer.domain.login.OauthLoginRequest
-import com.luke.kHelperServer.infrastructure.RefreshTokenCookieSetter
+import com.luke.kHelperServer.infrastructure.RefreshTokenCookieHelper
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(V1_LOGIN_URL)
 class LoginController(
     private val loginService: LoginService,
-    private val refreshTokenCookieSetter: RefreshTokenCookieSetter
+    private val refreshTokenCookieHelper: RefreshTokenCookieHelper
 ) {
     @PostMapping("/oauth")
     fun loginByOauth(
@@ -28,7 +28,7 @@ class LoginController(
     ): ResponseEntity<GlobalResponse<LoginResponse>> {
         val generatedTokens = loginService.loginByOauth(reqBody.token, reqBody.oauthVendor)
 
-        refreshTokenCookieSetter.setRefreshTokenOnCookie(response, generatedTokens.refreshToken)
+        refreshTokenCookieHelper.setRefreshTokenOnCookie(response, generatedTokens.refreshToken)
 
         return GlobalResponse.createResponse(LoginResponse(generatedTokens.accessToken.token))
     }
@@ -40,7 +40,7 @@ class LoginController(
     ): ResponseEntity<GlobalResponse<LoginResponse>> {
         val generatedTokens = loginService.loginByEmailAndPassword(Email(reqBody.email), reqBody.password.trim())
 
-        refreshTokenCookieSetter.setRefreshTokenOnCookie(response, generatedTokens.refreshToken)
+        refreshTokenCookieHelper.setRefreshTokenOnCookie(response, generatedTokens.refreshToken)
 
         return GlobalResponse.createResponse(LoginResponse(generatedTokens.accessToken.token))
     }
