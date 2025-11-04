@@ -8,7 +8,7 @@ class Email(
 ) {
     init {
         if (!EMAIL_REGEX.matches(address)) {
-            throw IllegalStateException(address)
+            throw IllegalArgumentException(address)
         }
     }
 
