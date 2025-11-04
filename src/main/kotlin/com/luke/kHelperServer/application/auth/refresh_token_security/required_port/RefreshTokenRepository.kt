@@ -1,4 +1,4 @@
-package com.luke.kHelperServer.application.auth.login.required_port
+package com.luke.kHelperServer.application.auth.refresh_token_security.required_port
 
 import com.luke.kHelperServer.domain.login.HashedRefreshToken
 
