@@ -10,4 +10,7 @@ interface AccountJpaRepository: JpaRepository<Account, Long> {
 
     @EntityGraph(attributePaths = ["authority"])
     fun findByEmail(email: Email): Account?
+
+    @EntityGraph(attributePaths = ["authority"])
+    fun findAccountById(accountId: Long): Account?
 }

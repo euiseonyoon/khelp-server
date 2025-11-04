@@ -41,6 +41,10 @@ class AccountCommandService(
         return accountCommandRepository.findByEmail(email)?.let { AccountDto(it) }
     }
 
+    override fun findByAccountId(accountId: Long): AccountDto? {
+        return accountCommandRepository.findByAccountId(accountId)?.let { AccountDto(it) }
+    }
+
     private fun checkDuplicateEmail(email: Email) {
         if (accountCommandRepository.existsByEmail(email)) {
             throw BizException(ErrorMessages.DUPLICATED_EMAIL)

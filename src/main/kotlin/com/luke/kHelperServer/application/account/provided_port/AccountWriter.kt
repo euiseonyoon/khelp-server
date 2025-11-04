@@ -8,4 +8,6 @@ interface AccountWriter {
     fun registerAccount(request: AccountCreateRequest): AccountDto
 
     fun findByEmail(email: Email): AccountDto?
+
+    fun findByAccountId(accountId: Long): AccountDto?
 }

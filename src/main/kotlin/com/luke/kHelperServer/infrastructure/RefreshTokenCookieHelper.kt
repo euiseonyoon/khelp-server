@@ -1,6 +1,7 @@
 package com.luke.kHelperServer.infrastructure
 
 import com.luke.kHelperServer.domain.login.RefreshToken
+import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 
 interface RefreshTokenCookieHelper {
@@ -9,4 +10,8 @@ interface RefreshTokenCookieHelper {
     }
 
     fun setRefreshTokenOnCookie(response: HttpServletResponse, refreshToken: RefreshToken)
+
+    fun extractRefreshTokenFromCookie(request: HttpServletRequest): RefreshToken
+
+    fun deleteRefreshTokenFromCookie(response: HttpServletResponse)
 }

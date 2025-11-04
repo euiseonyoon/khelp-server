@@ -23,4 +23,8 @@ class AccountJpaCommandRepository(
     override fun findByEmail(email: Email): Account? {
         return accountJpaRepository.findByEmail(email)
     }
+
+    override fun findByAccountId(accountId: Long): Account? {
+        return accountJpaRepository.findAccountById(accountId)
+    }
 }

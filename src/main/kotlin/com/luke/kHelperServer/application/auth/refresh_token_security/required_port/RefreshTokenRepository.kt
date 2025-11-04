@@ -4,4 +4,8 @@ import com.luke.kHelperServer.domain.login.HashedRefreshToken
 
 interface RefreshTokenRepository {
     fun saveRefreshToken(accountId: Long, hashedRefreshToken: HashedRefreshToken)
+
+    fun findHashedRefreshToken(accountId: Long): HashedRefreshToken?
+
+    fun deleteHashedRefreshToken(accountId: Long)
 }

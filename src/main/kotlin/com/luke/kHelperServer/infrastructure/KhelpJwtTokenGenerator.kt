@@ -66,6 +66,10 @@ class KhelpJwtTokenGenerator(
         ).let { RefreshToken(it) }
     }
 
+    override fun getRefreshTokenSecret(): SecretKey {
+        return refreshSecretKey
+    }
+
     private fun createToken(
         accountId: Long,
         durationMs: Long,

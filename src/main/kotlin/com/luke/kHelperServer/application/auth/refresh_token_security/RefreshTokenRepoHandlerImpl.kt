@@ -16,4 +16,12 @@ class RefreshTokenRepoHandlerImpl(
         val hashedRefreshToken = HashedRefreshToken(hasher.hashString(refreshToken.token))
         refreshTokenRepository.saveRefreshToken(accountId, hashedRefreshToken)
     }
+
+    override fun findHashedRefreshToken(accountId: Long): HashedRefreshToken? {
+        return refreshTokenRepository.findHashedRefreshToken(accountId)
+    }
+
+    override fun deleteHashedRefreshToken(accountId: Long) {
+        return refreshTokenRepository.deleteHashedRefreshToken(accountId)
+    }
 }

@@ -23,4 +23,12 @@ class RefreshTokenRedisRepository(
     override fun saveRefreshToken(accountId: Long, hashedRefreshToken: HashedRefreshToken) {
         super.save(accountId, hashedRefreshToken, null)
     }
+
+    override fun findHashedRefreshToken(accountId: Long): HashedRefreshToken? {
+        return super.find(accountId)
+    }
+
+    override fun deleteHashedRefreshToken(accountId: Long) {
+        return super.delete(accountId)
+    }
 }

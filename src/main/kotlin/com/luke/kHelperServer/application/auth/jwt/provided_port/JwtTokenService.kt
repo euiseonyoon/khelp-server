@@ -8,4 +8,6 @@ interface JwtTokenService {
     fun createAccessToken(account: Account): AccessToken
 
     fun createRefreshToken(account: Account): RefreshToken
+
+    fun parseAccountIdFromRefreshToken(refreshToken: RefreshToken): Long
 }
