@@ -2,7 +2,7 @@ package com.luke.kHelperServer.application.auth.login
 
 import com.luke.kHelperServer.application.auth.login.provided_port.CredentialValidator
 import com.luke.kHelperServer.application.auth.login.provided_port.LoginService
-import com.luke.kHelperServer.application.auth.refresh_token_security.provided_port.RefreshTokenHandler
+import com.luke.kHelperServer.application.auth.refresh_token_security.provided_port.RefreshTokenRepoHandler
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
 import com.luke.kHelperServer.domain.login.GeneratedTokens
@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated
 @Validated
 class LoginServiceImpl(
     private val credentialValidator: CredentialValidator,
-    private val refreshTokenHandler: RefreshTokenHandler,
+    private val refreshTokenRepoHandler: RefreshTokenRepoHandler,
 ): LoginService {
 
     @Transactional
@@ -40,7 +40,7 @@ class LoginServiceImpl(
     }
 
     private fun saveRefreshToken(loginResult: LoginResult): GeneratedTokens {
-        refreshTokenHandler.saveRefreshToken(loginResult.account.id, loginResult.generatedTokens.refreshToken)
+        refreshTokenRepoHandler.saveRefreshToken(loginResult.account.id, loginResult.generatedTokens.refreshToken)
         return loginResult.generatedTokens
     }
 }

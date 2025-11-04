@@ -2,6 +2,6 @@ package com.luke.kHelperServer.application.auth.refresh_token_security.provided_
 
 import com.luke.kHelperServer.domain.login.RefreshToken
 
-interface RefreshTokenHandler {
+interface RefreshTokenRepoHandler {
     fun saveRefreshToken(accountId: Long, refreshToken: RefreshToken)
 }
