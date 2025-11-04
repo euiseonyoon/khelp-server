@@ -26,7 +26,7 @@ class LoginServiceImpl(
         oauthVendor: OauthVendor,
     ): GeneratedTokens {
         val loginResult = credentialValidator.loginByOauth(token, oauthVendor)
-        return getTokensAndSaveRefreshToken(loginResult)
+        return saveRefreshToken(loginResult)
     }
 
     @Transactional(readOnly = true)
@@ -36,10 +36,10 @@ class LoginServiceImpl(
         rawPassword: String,
     ): GeneratedTokens {
         val loginResult = credentialValidator.loginByEmailPassword(email, rawPassword)
-        return getTokensAndSaveRefreshToken(loginResult)
+        return saveRefreshToken(loginResult)
     }
 
-    private fun getTokensAndSaveRefreshToken(loginResult: LoginResult): GeneratedTokens {
+    private fun saveRefreshToken(loginResult: LoginResult): GeneratedTokens {
         refreshTokenHandler.saveRefreshToken(loginResult.account.id, loginResult.generatedTokens.refreshToken)
         return loginResult.generatedTokens
     }
