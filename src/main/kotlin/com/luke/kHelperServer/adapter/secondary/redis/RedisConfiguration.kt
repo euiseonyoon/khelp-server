@@ -1,4 +1,4 @@
-package com.luke.kHelperServer.configuration
+package com.luke.kHelperServer.adapter.secondary.redis
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
