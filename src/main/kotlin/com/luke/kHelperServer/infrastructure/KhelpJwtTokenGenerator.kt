@@ -1,6 +1,8 @@
 package com.luke.kHelperServer.infrastructure
 
 import com.luke.kHelperServer.application.auth.jwt.required_port.JwtTokenGenerator
+import com.luke.kHelperServer.application.auth.jwt.required_port.JwtTokenGenerator.Companion.AUTH_CLAIM_KEY
+import com.luke.kHelperServer.application.auth.jwt.required_port.JwtTokenGenerator.Companion.EMAIL_CLAIM_KEY
 import com.luke.kHelperServer.domain.account.write.Account
 import com.luke.kHelperServer.domain.login.AccessToken
 import com.luke.kHelperServer.domain.login.RefreshToken
@@ -31,12 +33,6 @@ class KhelpJwtTokenGenerator(
     @Value("\${jwt.refresh-duration-ms}")
     private val refreshDurationMs: Long,
 ): JwtTokenGenerator {
-
-    companion object {
-        const val EMAIL_CLAIM_KEY = "email"
-        const val AUTH_CLAIM_KEY = "auth"
-    }
-
     override val accessTokenExpirationMs: Long = accessDurationMs
     override val refreshTokenExpirationMs: Long = refreshDurationMs
 
@@ -68,6 +64,10 @@ class KhelpJwtTokenGenerator(
 
     override fun getRefreshTokenSecret(): SecretKey {
         return refreshSecretKey
+    }
+
+    override fun getAccessTokenSecret(): SecretKey {
+        return accessSecretKey
     }
 
     private fun createToken(
