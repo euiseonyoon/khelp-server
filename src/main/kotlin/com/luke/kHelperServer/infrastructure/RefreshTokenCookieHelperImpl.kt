@@ -29,11 +29,10 @@ class RefreshTokenCookieHelperImpl(
         )
     }
 
-    override fun extractRefreshTokenFromCookie(request: HttpServletRequest): RefreshToken {
+    override fun extractRefreshTokenFromCookie(request: HttpServletRequest): RefreshToken? {
         val refreshTokenString = request.cookies.firstOrNull { it.name == REFRESH_TOKEN_COOKIE_KEY }?.value
-            ?: throw BizException(ErrorMessages.REFRESH_TOKEN_ABSENT_FROM_COOKIE)
 
-        return RefreshToken(refreshTokenString)
+        return refreshTokenString?.let { RefreshToken(it) }
     }
 
     private fun setSecuredCookie(cookie: Cookie, maxAgeSec: Int): Cookie {

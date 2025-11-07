@@ -11,7 +11,7 @@ interface RefreshTokenCookieHelper {
 
     fun setRefreshTokenOnCookie(response: HttpServletResponse, refreshToken: RefreshToken)
 
-    fun extractRefreshTokenFromCookie(request: HttpServletRequest): RefreshToken
+    fun extractRefreshTokenFromCookie(request: HttpServletRequest): RefreshToken?
 
     fun deleteRefreshTokenFromCookie(response: HttpServletResponse)
 }

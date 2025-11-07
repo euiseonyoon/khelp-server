@@ -8,7 +8,6 @@ enum class ErrorMessages(val code: String, val msg: String) {
     INVALID_CREDENTIAL("AUTH-5", "올바른 인증정보가 아닙니다."),
 
     REFRESH_TOKEN_ABSENT_FROM_COOKIE("TOKEN-1", "요청으로부터 인증 정보를 추출하는데 실패했습니다."),
-    TOKEN_PARSE_ERROR("TOKEN-2", "유효하지 않거나 만료된 인증정보 입니다."),
-    REFRESH_TOKEN_NOT_FOUND_ON_REPOSITORY("TOKEN-3", "인증 정보를 불러오는데 실패했습니다."),
-    UNIDENTICAL_REFRESH_TOKEN("TOKEN-4", "잘못된 인증 정보입니다."),
+    REFRESH_TOKEN_NOT_FOUND_ON_REPOSITORY("TOKEN-2", "인증 정보를 불러오는데 실패했습니다."),
+    UNIDENTICAL_REFRESH_TOKEN("TOKEN-3", "잘못된 인증 정보입니다."),
 }
