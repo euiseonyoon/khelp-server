@@ -7,6 +7,7 @@ import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.PasswordEncoder
 import com.luke.kHelperServer.domain.account.request.AccountCreateRequest
 import com.luke.kHelperServer.domain.account.write.Account
+import com.luke.kHelperServer.domain.authority.write.Authority
 import com.luke.kHelperServer.domain.exception.BizException
 import com.luke.kHelperServer.domain.exception.ErrorMessages
 import jakarta.validation.Valid
@@ -43,6 +44,10 @@ class AccountCommandService(
 
     override fun findByAccountId(accountId: Long): AccountDto? {
         return accountCommandRepository.findByAccountId(accountId)?.let { AccountDto(it) }
+    }
+
+    override fun saveAccount(account: Account): AccountDto {
+        return AccountDto(accountCommandRepository.save(account))
     }
 
     private fun checkDuplicateEmail(email: Email) {

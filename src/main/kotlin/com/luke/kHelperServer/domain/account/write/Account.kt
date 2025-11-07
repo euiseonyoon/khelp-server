@@ -3,6 +3,7 @@ package com.luke.kHelperServer.domain.account.write
 import com.luke.kHelperServer.domain.BaseEntity
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.OauthVendor
+import com.luke.kHelperServer.domain.account.PasswordEncoder
 import com.luke.kHelperServer.domain.account.PasswordHash
 import com.luke.kHelperServer.domain.authority.write.Authority
 import jakarta.persistence.*
@@ -53,6 +54,16 @@ class Account(
 
     override fun hashCode(): Int {
         return email.address.hashCode()
+    }
+
+    fun updatePassword(passwordEncoder: PasswordEncoder, newRawPassword: String): Account {
+        this.passwordHash = passwordEncoder.encode(newRawPassword)
+        return this
+    }
+
+    fun updateNickname(newNickname: String): Account {
+        this.nickname = newNickname
+        return this
     }
 }
 
