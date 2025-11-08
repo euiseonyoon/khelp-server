@@ -1,8 +1,8 @@
 package com.luke.kHelperServer.application.service_provider.required_port
 
-import com.luke.kHelperServer.domain.service_provider.read.ServiceProviderView
+import com.luke.kHelperServer.domain.service_provider.read.ServiceProviderDocument
 import org.springframework.data.domain.Page
 
 interface ServiceProviderQueryRepository {
-    fun getApprovedServiceProviders(perPage: Int, pageNumber: Int): Page<ServiceProviderView>
+    fun getApprovedServiceProviders(perPage: Int, pageNumber: Int): Page<ServiceProviderDocument>
 }

@@ -1,8 +1,8 @@
 package com.luke.kHelperServer.adapter.primary.webapi.v1.service_provider
 
 import com.luke.kHelperServer.adapter.primary.webapi.v1.V1_SERVICE_PROVIDER_REVIEW_URL
+import com.luke.kHelperServer.application.service_provider.provided_port.ServiceProviderReviewReader
 import com.luke.kHelperServer.application.service_provider.provided_port.ServiceProviderReviewWriter
-import com.luke.kHelperServer.application.service_provider.required_port.ServiceProviderReviewQueryRepository
 import com.luke.kHelperServer.common.GlobalResponse
 import com.luke.kHelperServer.common.PageResult
 import com.luke.kHelperServer.domain.service_provider.read.ServiceProviderReviewView
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping(V1_SERVICE_PROVIDER_REVIEW_URL)
 class ServiceReviewController(
     private val serviceProviderReviewWriter: ServiceProviderReviewWriter,
-    private val serviceProviderReviewQueryRepository: ServiceProviderReviewQueryRepository
+    private val serviceProviderReviewReader: ServiceProviderReviewReader,
 ) {
     @PostMapping
     fun addReview(
@@ -34,7 +34,7 @@ class ServiceReviewController(
         @RequestParam(required = true) perPage: Int,
         @RequestParam(required = true) pageNumber: Int,
     ): ResponseEntity<GlobalResponse<PageResult<ServiceProviderReviewView>>> {
-        return serviceProviderReviewQueryRepository.findByServiceProviderId(serviceProviderId, perPage, pageNumber).let {
+        return serviceProviderReviewReader.findByServiceProviderId(serviceProviderId, perPage, pageNumber).let {
             GlobalResponse.createResponse(PageResult.fromPage(it))
         }
     }
@@ -45,7 +45,7 @@ class ServiceReviewController(
         @RequestParam(required = true) pageNumber: Int,
         @AuthenticationPrincipal accountId: Long,
     ): ResponseEntity<GlobalResponse<PageResult<ServiceProviderReviewView>>> {
-        return serviceProviderReviewQueryRepository.findReviewByMe(accountId, perPage, pageNumber).let {
+        return serviceProviderReviewReader.findReviewByMe(accountId, perPage, pageNumber).let {
             GlobalResponse.createResponse(PageResult.fromPage(it))
         }
     }
