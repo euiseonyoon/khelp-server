@@ -12,7 +12,7 @@ import java.util.Date
 
 @Document(collection = "account")
 @CompoundIndexes(
-    CompoundIndex(name = "account_id_idx", def = "{'accountId': 1}", unique = true),
+    CompoundIndex(name = "account_id_idx", def = "{'account_id': 1}", unique = true),
     CompoundIndex(name = "email_idx", def = "{'email': 1}", unique = true)
 )
 data class AccountDocument(

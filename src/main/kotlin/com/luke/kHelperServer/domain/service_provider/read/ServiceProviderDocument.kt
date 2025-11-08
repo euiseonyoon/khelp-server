@@ -10,8 +10,8 @@ import java.util.*
 
 @Document(collection = "service_provider")
 @CompoundIndexes(
-    CompoundIndex(name = "account_id_idx", def = "{'accountId': 1}", unique = true),
-    CompoundIndex(name = "service_provider_id_idx", def = "{'serviceProviderId': 1}", unique = true),
+    CompoundIndex(name = "account_id_idx", def = "{'account_id': 1}", unique = true),
+    CompoundIndex(name = "service_provider_id_idx", def = "{'service_provider_id': 1}", unique = true),
 )
 data class ServiceProviderDocument(
     @Id

@@ -22,7 +22,7 @@ class ServiceProviderReviewMongodbQueryRepository(
             Sort.by(Sort.Direction.DESC, "updatedAt")
         )
         return serviceProviderReviewMongoRepository.findByServiceProviderId(serviceProviderId, pageable).map {
-            it.toServiceProviderReviewView()
+            it.toView()
         }
     }
 
@@ -33,7 +33,7 @@ class ServiceProviderReviewMongodbQueryRepository(
             Sort.by(Sort.Direction.DESC, "updatedAt")
         )
         return serviceProviderReviewMongoRepository.findByReviewerAccountId(accountId, pageable).map {
-            it.toServiceProviderReviewView()
+            it.toView()
         }
     }
 }

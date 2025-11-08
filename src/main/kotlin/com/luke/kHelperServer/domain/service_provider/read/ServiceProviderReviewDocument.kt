@@ -47,7 +47,7 @@ data class ServiceProviderReviewDocument(
     @Field("updated_at")
     var updatedAt: Date
 ) {
-    fun toServiceProviderReviewView(): ServiceProviderReviewView {
+    fun toView(): ServiceProviderReviewView {
         return ServiceProviderReviewView(this.serviceProviderReviewId, this.review, this.rating)
     }
 }

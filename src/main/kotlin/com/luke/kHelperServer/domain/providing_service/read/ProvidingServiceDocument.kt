@@ -9,7 +9,7 @@ import java.util.*
 
 @Document(collection = "providing_service")
 @CompoundIndexes(
-    CompoundIndex(name = "providing_service_id_idx", def = "{'providingServiceId': 1}", unique = true),
+    CompoundIndex(name = "providing_service_id_idx", def = "{'providing_service_id': 1}", unique = true),
 )
 data class ProvidingServiceDocument(
     @Id
