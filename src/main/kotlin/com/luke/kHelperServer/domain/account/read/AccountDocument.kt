@@ -26,25 +26,25 @@ data class AccountDocument(
     val email: String,
 
     @Field("passwordHash")
-    val passwordHash: String,
+    var passwordHash: String,
 
     @Field("authority")
-    val authority: AuthorityDocument,
+    var authority: AuthorityDocument,
 
     @Field("nickname")
-    val nickname: String?,
+    var nickname: String?,
 
     @Field("enabled")
-    val enabled: Boolean,
+    var enabled: Boolean,
 
     @Field("oauth_vendor")
-    val oauthVendor: String?,
+    var oauthVendor: String?,
 
     @Field("created_at")
     val createdAt: Date,
 
     @Field("updated_at")
-    val updatedAt: Date
+    var updatedAt: Date
 ) {
     fun toAccountView(): AccountView {
         return AccountView(

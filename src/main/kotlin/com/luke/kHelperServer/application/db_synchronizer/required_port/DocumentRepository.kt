@@ -4,4 +4,6 @@ interface DocumentRepository <TDocument> {
     fun save(document: TDocument)
 
     fun findByWriteEntityId(writeEntityId: Long): TDocument?
+
+    fun deleteByWriteEntityId(writeEntityId: Long)
 }
