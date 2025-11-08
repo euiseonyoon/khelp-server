@@ -8,4 +8,8 @@ interface ServiceProviderCommandRepository {
     fun save(serviceProvider: ServiceProvider): ServiceProvider
 
     fun findByAccountId(accountId: Long): ServiceProvider?
+
+    fun existsById(serviceProviderId: Long): Boolean
+
+    fun findById(serviceProviderId: Long): ServiceProvider?
 }

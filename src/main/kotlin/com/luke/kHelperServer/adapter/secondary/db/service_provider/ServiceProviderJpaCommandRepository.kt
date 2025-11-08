@@ -17,7 +17,15 @@ class ServiceProviderJpaCommandRepository(
     }
 
     override fun findByAccountId(accountId: Long): ServiceProvider? {
-        return serviceProviderJpaRepository.findById(accountId).orElse(null)
+        return serviceProviderJpaRepository.findByAccountId(accountId)
+    }
+
+    override fun existsById(serviceProviderId: Long): Boolean {
+        return serviceProviderJpaRepository.existsById(serviceProviderId)
+    }
+
+    override fun findById(serviceProviderId: Long): ServiceProvider? {
+        return serviceProviderJpaRepository.findById(serviceProviderId).orElse(null)
     }
 
 }

@@ -2,7 +2,6 @@ package com.luke.kHelperServer.common
 
 import com.luke.kHelperServer.domain.exception.BizException
 import kotlinx.serialization.Serializable
-import org.aspectj.weaver.ast.Not
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 

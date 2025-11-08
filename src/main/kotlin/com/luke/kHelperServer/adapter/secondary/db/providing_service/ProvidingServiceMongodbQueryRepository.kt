@@ -4,5 +4,7 @@ import com.luke.kHelperServer.application.providing_service.required_port.Provid
 import org.springframework.stereotype.Component
 
 @Component
-class ProvidingServiceMongodbQueryRepository : ProvidingServiceQueryRepository{
+class ProvidingServiceMongodbQueryRepository(
+    private val providingServiceMongoRepository: ProvidingServiceMongoRepository
+) : ProvidingServiceQueryRepository{
 }

@@ -12,6 +12,7 @@ enum class ErrorMessages(val code: String, val msg: String) {
     UNIDENTICAL_REFRESH_TOKEN("TOKEN-3", "잘못된 인증 정보입니다."),
 
     SERVICE_PROVIDER_ACCOUNT_NOT_FOUND("SERVICE-PROVIDER-1", "유저를 찾을 수 없습니다."),
+    SERVICE_PROVIDER_NOT_FOUND("SERVICE-PROVIDER-1", "서비스 제공자를 찾을 수 없습니다."),
 
     PROVIDING_SERVICE_NOT_FOUND("PROVIDING-SERVICE-1", "서비스를 찾을 수 없습니다.")
 }

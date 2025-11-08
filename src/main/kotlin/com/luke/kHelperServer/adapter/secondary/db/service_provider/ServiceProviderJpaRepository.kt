@@ -4,4 +4,6 @@ import com.luke.kHelperServer.domain.service_provider.write.ServiceProvider
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface ServiceProviderJpaRepository: JpaRepository<ServiceProvider, Long> {
+
+    fun findByAccountId(accountId: Long): ServiceProvider
 }
