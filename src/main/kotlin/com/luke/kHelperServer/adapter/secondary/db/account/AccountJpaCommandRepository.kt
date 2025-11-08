@@ -20,10 +20,12 @@ class AccountJpaCommandRepository(
         return accountJpaRepository.existsByEmail(email)
     }
 
+    @Transactional(readOnly = true)
     override fun findByEmail(email: Email): Account? {
         return accountJpaRepository.findByEmail(email)
     }
 
+    @Transactional(readOnly = true)
     override fun findByAccountId(accountId: Long): Account? {
         return accountJpaRepository.findAccountById(accountId)
     }
