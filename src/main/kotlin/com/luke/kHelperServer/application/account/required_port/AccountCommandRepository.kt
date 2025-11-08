@@ -8,6 +8,8 @@ interface AccountCommandRepository {
 
     fun existsByEmail(email: Email): Boolean
 
+    fun existsByAccountId(accountId: Long): Boolean
+
     fun findByEmail(email: Email): Account?
 
     fun findByAccountId(accountId: Long): Account?

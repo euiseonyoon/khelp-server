@@ -14,4 +14,6 @@ interface AccountWriter {
     fun findByAccountId(accountId: Long): AccountDto?
 
     fun saveAccount(account: Account): AccountDto
+
+    fun existsByAccountId(accountId: Long): Boolean
 }
