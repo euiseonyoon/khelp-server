@@ -1,6 +1,8 @@
 package com.luke.kHelperServer.adapter.secondary.db.providing_service
 
 import com.luke.kHelperServer.domain.providing_service.read.ProvidingServiceDocument
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 
@@ -9,4 +11,6 @@ interface ProvidingServiceMongoRepository : MongoRepository<ProvidingServiceDocu
     fun findByProvidingServiceId(providingServiceId: Long): ProvidingServiceDocument?
 
     fun deleteByProvidingServiceId(providingServiceId: Long)
+
+    fun findByServiceProviderId(serviceProviderId: Long, pageable: Pageable): Page<ProvidingServiceDocument>
 }

@@ -10,6 +10,14 @@ import java.util.*
 @Document(collection = "providing_service")
 @CompoundIndexes(
     CompoundIndex(name = "providing_service_id_idx", def = "{'providing_service_id': 1}", unique = true),
+    CompoundIndex(
+        name = "service_provider_id_updated_at_idx",
+        def = "{'service_provider_id': 1, 'updated_at': -1}"
+    ),
+    CompoundIndex(
+        name = "updated_at_idx",
+        def = "{'updated_at': -1}"
+    )
 )
 data class ProvidingServiceDocument(
     @Id
@@ -32,5 +40,14 @@ data class ProvidingServiceDocument(
 
     @Field("updated_at")
     var updatedAt: Date
-)
+) {
+    fun toView(): ProvidingServiceView {
+        return ProvidingServiceView(
+            this.providingServiceId,
+            this.description,
+            this.price,
+            this.serviceProviderId
+        )
+    }
+}
 
