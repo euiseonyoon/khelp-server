@@ -11,8 +11,16 @@ class ServiceProvider(
 
     @Column(nullable = false)
     val description: String,
+
+    @Column(nullable = false)
+    var approved: Boolean = false
 ): BaseEntity() {
     @Id
     @GeneratedValue
     val id: Long = 0
+
+    fun approve(): ServiceProvider {
+        this.approved = true
+        return this
+    }
 }

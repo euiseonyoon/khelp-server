@@ -26,6 +26,9 @@ data class ServiceProviderDocument(
     @Field("description")
     val description: String,
 
+    @Field("approved")
+    var approved: Boolean,
+
     @Field("created_at")
     val createdAt: Date,
 

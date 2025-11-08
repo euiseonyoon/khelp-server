@@ -38,6 +38,7 @@ class ServiceProviderSynchronizer(
             serviceProviderId = serviceProvider.id,
             accountId = serviceProvider.accountId,
             description = serviceProvider.description,
+            approved = serviceProvider.approved,
             createdAt = Date.from(serviceProvider.createdAt.toInstant()),
             updatedAt = Date.from(serviceProvider.updatedAt.toInstant()),
         )
@@ -56,6 +57,7 @@ class ServiceProviderSynchronizer(
             serviceProviderId = serviceProvider.id,
             accountId = serviceProvider.accountId,
             description = serviceProvider.description,
+            approved = serviceProvider.approved,
             createdAt = Date.from(serviceProvider.createdAt.toInstant()),
             updatedAt = Date.from(serviceProvider.updatedAt.toInstant()),
         )
