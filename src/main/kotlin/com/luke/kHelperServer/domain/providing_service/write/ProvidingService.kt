@@ -3,11 +3,12 @@ package com.luke.kHelperServer.domain.providing_service.write
 import com.luke.kHelperServer.domain.BaseEntity
 import com.luke.kHelperServer.domain.service_provider.write.ServiceProvider
 import jakarta.persistence.*
+import jakarta.validation.constraints.Min
 
 @Entity
 @EntityListeners(ProvidingServiceEntityListener::class)
 class ProvidingService(
-    @Column(nullable = false)
+    @Column(nullable = false) @Min(0)
     val price: Int,
 
     @Column(nullable = false)
