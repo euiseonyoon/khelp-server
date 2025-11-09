@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional
 import org.springframework.validation.annotation.Validated
 
 @Service
-@Validated
 class LoginServiceImpl(
     private val credentialValidator: CredentialValidator,
     private val refreshTokenRepoHandler: RefreshTokenRepoHandler,
@@ -21,7 +20,6 @@ class LoginServiceImpl(
 
     @Transactional
     override fun loginByOauth(
-        @NotEmpty
         token: String,
         oauthVendor: OauthVendor,
     ): GeneratedTokens {
@@ -32,7 +30,6 @@ class LoginServiceImpl(
     @Transactional(readOnly = true)
     override fun loginByEmailAndPassword(
         email: Email,
-        @NotEmpty
         rawPassword: String,
     ): GeneratedTokens {
         val loginResult = credentialValidator.loginByEmailPassword(email, rawPassword)

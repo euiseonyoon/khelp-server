@@ -7,19 +7,16 @@ import com.luke.kHelperServer.domain.exception.BizException
 import com.luke.kHelperServer.domain.exception.ErrorMessages
 import com.luke.kHelperServer.domain.providing_service.ProvidingServiceCreateRequest
 import com.luke.kHelperServer.domain.providing_service.ProvidingServiceDeleteRequest
-import jakarta.validation.Valid
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.validation.annotation.Validated
 
 @Service
-@Validated
 class ProvidingServiceWriterImpl(
     private val providingServiceCommandRepository: ProvidingServiceCommandRepository,
     private val serviceProviderCommandRepository: ServiceProviderCommandRepository
 ) : ProvidingServiceWriter{
     @Transactional
-    override fun addService(@Valid request: ProvidingServiceCreateRequest, accountId: Long): ProvidingServiceDto {
+    override fun addService(request: ProvidingServiceCreateRequest, accountId: Long): ProvidingServiceDto {
         val serviceProvider = serviceProviderCommandRepository.findByAccountId(accountId) ?:
             throw BizException(ErrorMessages.SERVICE_PROVIDER_ACCOUNT_NOT_FOUND)
 

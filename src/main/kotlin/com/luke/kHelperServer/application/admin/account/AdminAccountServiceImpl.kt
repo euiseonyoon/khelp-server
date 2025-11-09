@@ -14,15 +14,12 @@ import com.luke.kHelperServer.domain.account.write.Account
 import com.luke.kHelperServer.domain.authority.ROLE_ADMIN
 import com.luke.kHelperServer.domain.authority.ROLE_SUPER_ADMIN
 import com.luke.kHelperServer.domain.authority.Role
-import jakarta.validation.Valid
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.validation.annotation.Validated
 
 @Service
 @PreAuthorize("hasRole('$ROLE_SUPER_ADMIN')")
-@Validated
 class AdminAccountServiceImpl(
     private val accountService: AccountService,
     private val accountCommandService: AccountCommandService,
@@ -30,7 +27,7 @@ class AdminAccountServiceImpl(
 ) : AdminAccountService {
 
     @Transactional
-    override fun setToAccountToAdmin(@Valid request: SetToAdminRequest): AccountDto? {
+    override fun setToAccountToAdmin(request: SetToAdminRequest): AccountDto? {
         val email = Email(request.targetEmail)
         if (request.newPassword == null) {
             return setAccountToAdmin(email)

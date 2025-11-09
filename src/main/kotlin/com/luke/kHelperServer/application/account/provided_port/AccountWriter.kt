@@ -4,10 +4,12 @@ import com.luke.kHelperServer.application.account.dto.AccountDto
 import com.luke.kHelperServer.domain.account.Email
 import com.luke.kHelperServer.domain.account.request.AccountCreateRequest
 import com.luke.kHelperServer.domain.account.write.Account
-import com.luke.kHelperServer.domain.authority.write.Authority
+import jakarta.validation.Valid
+import org.springframework.validation.annotation.Validated
 
+@Validated
 interface AccountWriter {
-    fun registerAccount(request: AccountCreateRequest): AccountDto
+    fun registerAccount(@Valid request: AccountCreateRequest): AccountDto
 
     fun findByEmail(email: Email): AccountDto?
 

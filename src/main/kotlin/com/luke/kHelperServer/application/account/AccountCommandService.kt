@@ -9,19 +9,16 @@ import com.luke.kHelperServer.domain.account.request.AccountCreateRequest
 import com.luke.kHelperServer.domain.account.write.Account
 import com.luke.kHelperServer.domain.exception.BizException
 import com.luke.kHelperServer.domain.exception.ErrorMessages
-import jakarta.validation.Valid
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.validation.annotation.Validated
 
 @Service
-@Validated
 class AccountCommandService(
     private val accountCommandRepository: AccountCommandRepository,
     private val passwordEncoder: PasswordEncoder,
 ) : AccountWriter {
     @Transactional
-    override fun registerAccount(@Valid request: AccountCreateRequest): AccountDto {
+    override fun registerAccount(request: AccountCreateRequest): AccountDto {
         checkDuplicateEmail(request.email)
 
         val newAccount = Account(

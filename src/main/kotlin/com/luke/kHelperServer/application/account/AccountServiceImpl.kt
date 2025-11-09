@@ -13,21 +13,14 @@ import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Size
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.validation.annotation.Validated
 
 @Service
-@Validated
 class AccountServiceImpl(
     private val accountCommandService: AccountCommandService,
     private val passwordEncoder: PasswordEncoder,
 ) : AccountService {
     @Transactional
-    override fun updateAccountPassword(
-        @NotEmpty
-        @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
-        newRawPassword: String,
-        email: Email,
-    ): AccountDto? {
+    override fun updateAccountPassword(newRawPassword: String, email: Email): AccountDto? {
         val targetAccount = accountCommandService.findByEmail(email)?.account ?: return null
         targetAccount.updatePassword(passwordEncoder, newRawPassword)
 
@@ -36,7 +29,7 @@ class AccountServiceImpl(
 
     @Transactional
     override fun updateAccountPassword(
-        @Valid request: AccountUpdatePasswordRequest,
+        request: AccountUpdatePasswordRequest,
         accountId: Long,
     ): AccountDto? {
         val targetAccount = accountCommandService.findByAccountId(accountId)?.account ?: return null
@@ -47,7 +40,7 @@ class AccountServiceImpl(
 
     @Transactional
     override fun updateAccountNickname(
-        @Valid request: AccountUpdateNicknameRequest,
+        request: AccountUpdateNicknameRequest,
         accountId: Long,
     ): AccountDto? {
         val targetAccount = accountCommandService.findByAccountId(accountId)?.account ?: return null

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component
 class DummyEmailSender : EmailSender {
     @Async
     override fun sendEmail(email: Email, rawPassword: String) {
-        TODO("Not yet implemented")
+        // Do nothing
     }
 }

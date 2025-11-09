@@ -11,13 +11,10 @@ import com.luke.kHelperServer.domain.provider_language_skill.read.LanguageSkillI
 import com.luke.kHelperServer.domain.service_provider.request.ServiceProviderRegisterRequest
 import com.luke.kHelperServer.domain.service_provider.write.ServiceProvider
 import com.luke.kHelperServer.domain.supporting_language.Language
-import jakarta.validation.Valid
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.validation.annotation.Validated
 
 @Service
-@Validated
 class ServiceProviderWriterImpl(
     private val serviceProviderCommandRepository: ServiceProviderCommandRepository,
     private val supportingLanguageCommandRepository: SupportingLanguageCommandRepository,
@@ -25,7 +22,7 @@ class ServiceProviderWriterImpl(
 ) : ServiceProviderWriter{
 
     @Transactional
-    override fun register(@Valid request: ServiceProviderRegisterRequest, accountId: Long): ServiceProviderDto {
+    override fun register(request: ServiceProviderRegisterRequest, accountId: Long): ServiceProviderDto {
         val accountFound = accountWriter.existsByAccountId(accountId)
         if (!accountFound) {
             throw BizException(ErrorMessages.SERVICE_PROVIDER_ACCOUNT_NOT_FOUND)
