@@ -4,6 +4,7 @@ import com.luke.kHelperServer.application.db_synchronizer.provided_port.EntitySy
 import com.luke.kHelperServer.application.db_synchronizer.required_port.DocumentRepository
 import com.luke.kHelperServer.domain.EventType
 import com.luke.kHelperServer.domain.WriteDbCommitedEvent
+import com.luke.kHelperServer.domain.provider_language_skill.read.ProviderLanguageSkillDocument
 import com.luke.kHelperServer.domain.service_provider.event.ServiceProviderCommittedEvent
 import com.luke.kHelperServer.domain.service_provider.event.ServiceProviderEvent
 import com.luke.kHelperServer.domain.service_provider.read.ServiceProviderDocument
@@ -34,6 +35,14 @@ class ServiceProviderSynchronizer(
         val serviceProvider = event.serviceProvider
         logger.info("Syncing ServiceProvider created: id={}", serviceProvider.id)
 
+        val languageSkills = serviceProvider.providerLanguageSkills.map { skill ->
+            ProviderLanguageSkillDocument(
+                languageId = skill.supportingLanguage.id,
+                languageName = skill.supportingLanguage.language.name,
+                level = skill.level
+            )
+        }
+
         val document = ServiceProviderDocument(
             serviceProviderId = serviceProvider.id,
             accountId = serviceProvider.accountId,
@@ -41,9 +50,11 @@ class ServiceProviderSynchronizer(
             approved = serviceProvider.approved,
             createdAt = Date.from(serviceProvider.createdAt.toInstant()),
             updatedAt = Date.from(serviceProvider.updatedAt.toInstant()),
+            languageSkills = languageSkills
         )
         serviceProviderDocumentRepository.save(document)
-        logger.info("ServiceProvider synced to MongoDB: serviceProviderId={}", serviceProvider.id)
+        logger.info("ServiceProvider synced to MongoDB: serviceProviderId={}, languageSkills count={}",
+            serviceProvider.id, languageSkills.size)
     }
 
     private fun handlerUpdated(event: ServiceProviderEvent) {
@@ -51,6 +62,14 @@ class ServiceProviderSynchronizer(
         logger.info("Syncing ServiceProvider updated: id={}", serviceProvider.id)
 
         val existing = serviceProviderDocumentRepository.findByWriteEntityId(serviceProvider.id)
+
+        val languageSkills = serviceProvider.providerLanguageSkills.map { skill ->
+            ProviderLanguageSkillDocument(
+                languageId = skill.supportingLanguage.id,
+                languageName = skill.supportingLanguage.language.name,
+                level = skill.level
+            )
+        }
 
         val document = ServiceProviderDocument(
             id = existing?.id, // MongoDB _id 유지 (업데이트)
@@ -60,9 +79,11 @@ class ServiceProviderSynchronizer(
             approved = serviceProvider.approved,
             createdAt = Date.from(serviceProvider.createdAt.toInstant()),
             updatedAt = Date.from(serviceProvider.updatedAt.toInstant()),
+            languageSkills = languageSkills
         )
         serviceProviderDocumentRepository.save(document)
-        logger.info("ServiceProvider updated in MongoDB: serviceProviderId={}", serviceProvider.id)
+        logger.info("ServiceProvider updated in MongoDB: serviceProviderId={}, languageSkills count={}",
+            serviceProvider.id, languageSkills.size)
     }
 
     private fun handleDeleted(event: ServiceProviderEvent) {

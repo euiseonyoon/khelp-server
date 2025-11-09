@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "1.9.25"
 	kotlin("plugin.serialization") version "1.9.25"
+	kotlin("kapt") version "1.9.25"
 }
 
 group = "com.luke"
@@ -45,6 +46,13 @@ dependencies {
 
 	// kotlin serializer
 	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+	// QueryDSL
+	val queryDslVersion = "5.0.0"
+	implementation("com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta")
+	kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta")
+	kapt("jakarta.persistence:jakarta.persistence-api")
+	kapt("jakarta.annotation:jakarta.annotation-api")
 
 	// jwt
 	val jjwtVersion = "0.11.5"

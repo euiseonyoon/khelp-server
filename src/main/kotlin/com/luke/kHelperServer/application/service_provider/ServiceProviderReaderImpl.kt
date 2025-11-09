@@ -19,9 +19,9 @@ class ServiceProviderReaderImpl(
     override fun getApprovedServiceProviders(
         @Min(1) perPage: Int,
         @Min(0) pageNumber: Int,
+        languageId: Long?,
+        level: String?
     ): Page<ServiceProviderView> {
-        return serviceProviderQueryRepository.getApprovedServiceProviders(perPage, pageNumber).map {
-            it.toView()
-        }
+        return serviceProviderQueryRepository.getApprovedServiceProviders(perPage, pageNumber, languageId, level)
     }
 }

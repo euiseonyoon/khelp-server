@@ -8,10 +8,6 @@ import org.springframework.stereotype.Component
 class ServiceProviderJpaCommandRepository(
     private val serviceProviderJpaRepository: ServiceProviderJpaRepository,
 ) : ServiceProviderCommandRepository {
-    override fun save(accountId: Long, description: String): ServiceProvider {
-        return serviceProviderJpaRepository.save(ServiceProvider(accountId, description))
-    }
-
     override fun save(serviceProvider: ServiceProvider): ServiceProvider {
         return serviceProviderJpaRepository.save(serviceProvider)
     }

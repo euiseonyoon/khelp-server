@@ -37,8 +37,10 @@ class ServiceProviderController(
     fun getApprovedServiceProviders(
         @RequestParam(required = true) perPage: Int,
         @RequestParam(required = true) pageNumber: Int,
+        @RequestParam(required = false) languageId: Long?,
+        @RequestParam(required = false) level: String?
     ):  ResponseEntity<GlobalResponse<PageResult<ServiceProviderView>>> {
-        return serviceProviderReader.getApprovedServiceProviders(perPage, pageNumber).let {
+        return serviceProviderReader.getApprovedServiceProviders(perPage, pageNumber, languageId, level).let {
             GlobalResponse.createResponse(PageResult.fromPage(it))
         }
     }
