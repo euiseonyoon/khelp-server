@@ -11,6 +11,8 @@ import com.luke.kHelperServer.domain.provider_language_skill.read.LanguageSkillI
 import com.luke.kHelperServer.domain.service_provider.request.ServiceProviderRegisterRequest
 import com.luke.kHelperServer.domain.service_provider.write.ServiceProvider
 import com.luke.kHelperServer.domain.supporting_language.Language
+import com.luke.kHelperServer.domain.supporting_language.LanguageLevel
+import com.luke.kHelperServer.domain.supporting_language.write.SupportingLanguage
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -37,11 +39,11 @@ class ServiceProviderWriterImpl(
         filteredLanguageSkills.forEach { serviceProvider.addLanguageSkill(it) }
 
         return serviceProviderCommandRepository.save(serviceProvider).let {
-            ServiceProviderDto(it)
+            ServiceProviderDto.fromEntity(it)
         }
     }
 
-    private fun filterSupportedLanguage(languageSkillInfos: List<LanguageSkillInfo>): List<LanguageSkillInfo> {
+    private fun filterSupportedLanguage(languageSkillInfos: List<LanguageSkillInfo>):  List<Pair<SupportingLanguage, LanguageLevel>> {
         val map = languageSkillInfos.associateBy { it.languageName.uppercase() }
 
         val supportingLanguages = supportingLanguageCommandRepository.findAllByLanguages(
@@ -49,13 +51,9 @@ class ServiceProviderWriterImpl(
         )
 
         return supportingLanguages.mapNotNull{ supportingLanguage ->
-            map[supportingLanguage.language.name]
-        }
-    }
-
-    override fun findByAccountId(accountId: Long): ServiceProviderDto? {
-        return serviceProviderCommandRepository.findByAccountId(accountId)?.let {
-            ServiceProviderDto(it)
+            map[supportingLanguage.language.name]?.let {
+                supportingLanguage to it.level
+            }
         }
     }
 }

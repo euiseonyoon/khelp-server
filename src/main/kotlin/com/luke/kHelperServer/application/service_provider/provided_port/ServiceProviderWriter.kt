@@ -8,6 +8,4 @@ import org.springframework.validation.annotation.Validated
 @Validated
 interface ServiceProviderWriter {
     fun register(@Valid request: ServiceProviderRegisterRequest, accountId: Long): ServiceProviderDto
-
-    fun findByAccountId(accountId: Long): ServiceProviderDto?
 }

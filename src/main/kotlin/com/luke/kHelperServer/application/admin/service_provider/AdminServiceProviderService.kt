@@ -22,7 +22,7 @@ class AdminServiceProviderService(
             ?: throw BizException(ErrorMessages.SERVICE_PROVIDER_ACCOUNT_NOT_FOUND)
 
         return serviceProviderCommandRepository.save(serviceProvider.approve()).let {
-            ServiceProviderDto(it)
+            ServiceProviderDto.fromEntity(it)
         }
     }
 }
