@@ -23,6 +23,14 @@ class ProviderLanguageSkillJpaCommandRepository(
     }
 
     override fun deleteLanguageSkill(providerLanguageSkillId: Long) {
-        providerLanguageSkillJpaRepository.deleteById(providerLanguageSkillId)
+        // FIX: deleteById는 @EntityListener의 @PostDelete 으로 잡을수 없다.
+        // Hibernate는 DeleteById를 할 경우, entity를 메모리에 로딩시킨후 삭제시키는게 아니다. 바로 DELETE 쿼리를 날린다.
+        // 그렇기 때문에 Entity의 라이플사이클 이벤트를 사용하는 @EntityListener나 AbstractAggregateRoot로는 deleteById 할 경우
+        // 이벤트를 알수 없다.
+        // providerLanguageSkillJpaRepository.deleteById(providerLanguageSkillId)
+
+        providerLanguageSkillJpaRepository.findById(providerLanguageSkillId).orElse(null)?.let {
+            providerLanguageSkillJpaRepository.delete(it)
+        }
     }
 }

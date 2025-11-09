@@ -20,7 +20,9 @@ class ProvidingServiceJpaCommandRepository(
             ?: throw BizException(ErrorMessages.PROVIDING_SERVICE_NOT_FOUND)
 
         if (providingService.serviceProvider.accountId == accountId) {
-            serviceJpaRepository.deleteById(providingServiceId)
+            // FIX: deleteById는 @EntityListener의 @PostDelete 으로 잡을수 없다.
+            // serviceJpaRepository.deleteById(providingServiceId)
+            serviceJpaRepository.delete(providingService)
         }
     }
 }
