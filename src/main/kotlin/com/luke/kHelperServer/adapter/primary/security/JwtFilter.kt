@@ -31,7 +31,9 @@ class JwtFilter(
                 val authority = jwtTokenService.parseRoleFromAccessTokenClaims(claims).let {
                     SimpleGrantedAuthority(it.name)
                 }
-                val authentication = AccountAuthenticationToken(accountId, listOf(authority), email)
+                val authentication = AccountAuthenticationToken(accountId, listOf(authority), email).apply {
+                    this.isAuthenticated = true
+                }
 
                 SecurityContextHolder.getContext().authentication = authentication
             }
