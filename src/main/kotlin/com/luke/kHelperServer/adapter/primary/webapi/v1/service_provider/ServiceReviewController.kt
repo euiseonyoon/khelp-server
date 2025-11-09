@@ -39,7 +39,7 @@ class ServiceReviewController(
         }
     }
 
-    @GetMapping
+    @GetMapping("/my-review")
     fun findMyReview(
         @RequestParam(required = true) perPage: Int,
         @RequestParam(required = true) pageNumber: Int,

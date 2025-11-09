@@ -3,7 +3,9 @@ package com.luke.kHelperServer.adapter.primary.security
 import com.luke.kHelperServer.adapter.primary.webapi.v1.V1_LOGIN_URL
 import com.luke.kHelperServer.adapter.primary.webapi.v1.V1_REFRESH_TOKEN_URL
 
-val LOGIN_ENDPOINTS = listOf(V1_LOGIN_URL)
+val LOGIN_ENDPOINTS = listOf(
+    "${V1_LOGIN_URL}/**"
+)
 
 val REFRESH_TOKEN_ENDPOINTS = listOf(V1_REFRESH_TOKEN_URL)
 
