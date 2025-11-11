@@ -1,13 +1,14 @@
 package com.luke.kHelperServer.domain.service_provider.write
 
 import com.luke.kHelperServer.domain.BaseEntity
+import com.luke.kHelperServer.domain.EventType
+import com.luke.kHelperServer.domain.service_provider.event.ServiceProviderReviewEvent
 import jakarta.persistence.*
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
 
 
 @Entity
-@EntityListeners(ServiceProviderReviewEntityListener::class)
 class ServiceProviderReview(
     @Column(nullable = false)
     val review: String,
@@ -22,7 +23,10 @@ class ServiceProviderReview(
     @JoinColumn(nullable = false)
     val serviceProvider: ServiceProvider
 ): BaseEntity() {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     val id: Long = 0
+
+    init {
+        this.registerEvent(ServiceProviderReviewEvent(EventType.CREATED, this))
+    }
 }

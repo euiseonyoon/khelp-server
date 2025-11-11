@@ -4,7 +4,6 @@ import com.luke.kHelperServer.application.db_synchronizer.provided_port.EntitySy
 import com.luke.kHelperServer.application.db_synchronizer.required_port.DocumentRepository
 import com.luke.kHelperServer.domain.EventType
 import com.luke.kHelperServer.domain.WriteDbCommitedEvent
-import com.luke.kHelperServer.domain.providing_service.event.ProvidingServiceCommittedEvent
 import com.luke.kHelperServer.domain.providing_service.event.ProvidingServiceEvent
 import com.luke.kHelperServer.domain.providing_service.read.ProvidingServiceDocument
 import org.slf4j.LoggerFactory
@@ -15,11 +14,11 @@ import java.util.Date
 @Component
 class ProvidingServiceSynchronizer(
     private val providingServiceDocumentRepository: DocumentRepository<ProvidingServiceDocument>
-) : EntitySynchronizer<ProvidingServiceCommittedEvent> {
+) : EntitySynchronizer<ProvidingServiceEvent> {
 
     private val logger = LoggerFactory.getLogger(ProvidingServiceSynchronizer::class.java)
 
-    override fun getHandlingMessageType() = ProvidingServiceCommittedEvent::class
+    override fun getHandlingMessageType() = ProvidingServiceEvent::class
 
     override fun synchronizeReadDb(event: WriteDbCommitedEvent) {
         val convertedEvent = event as ProvidingServiceEvent

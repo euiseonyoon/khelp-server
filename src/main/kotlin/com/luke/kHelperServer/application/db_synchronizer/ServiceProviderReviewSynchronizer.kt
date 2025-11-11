@@ -4,7 +4,6 @@ import com.luke.kHelperServer.application.db_synchronizer.provided_port.EntitySy
 import com.luke.kHelperServer.application.db_synchronizer.required_port.DocumentRepository
 import com.luke.kHelperServer.domain.EventType
 import com.luke.kHelperServer.domain.WriteDbCommitedEvent
-import com.luke.kHelperServer.domain.service_provider.event.ServiceProviderReviewCommittedEvent
 import com.luke.kHelperServer.domain.service_provider.event.ServiceProviderReviewEvent
 import com.luke.kHelperServer.domain.service_provider.read.ServiceProviderReviewDocument
 import org.slf4j.LoggerFactory
@@ -15,11 +14,11 @@ import java.util.Date
 @Component
 class ServiceProviderReviewSynchronizer(
     private val reviewDocumentRepository: DocumentRepository<ServiceProviderReviewDocument>
-) : EntitySynchronizer<ServiceProviderReviewCommittedEvent> {
+) : EntitySynchronizer<ServiceProviderReviewEvent> {
 
     private val logger = LoggerFactory.getLogger(ServiceProviderReviewSynchronizer::class.java)
 
-    override fun getHandlingMessageType() = ServiceProviderReviewCommittedEvent::class
+    override fun getHandlingMessageType() = ServiceProviderReviewEvent::class
 
     override fun synchronizeReadDb(event: WriteDbCommitedEvent) {
         val convertedEvent = event as ServiceProviderReviewEvent

@@ -1,11 +1,12 @@
 package com.luke.kHelperServer.domain.supporting_language.write
 
 import com.luke.kHelperServer.domain.BaseEntity
+import com.luke.kHelperServer.domain.EventType
 import com.luke.kHelperServer.domain.supporting_language.Language
+import com.luke.kHelperServer.domain.supporting_language.event.SupportingLanguageEvent
 import jakarta.persistence.*
 
 @Entity
-@EntityListeners(SupportingLanguageEntityListener::class)
 class SupportingLanguage(
     @Embedded
     @AttributeOverride(
@@ -16,5 +17,9 @@ class SupportingLanguage(
 ): BaseEntity() {
     @Id @GeneratedValue
     val id: Long = 0
+
+    init {
+        this.registerEvent(SupportingLanguageEvent(EventType.CREATED, this))
+    }
 }
 

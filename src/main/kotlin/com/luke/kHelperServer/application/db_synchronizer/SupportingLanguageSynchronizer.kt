@@ -4,7 +4,6 @@ import com.luke.kHelperServer.application.db_synchronizer.provided_port.EntitySy
 import com.luke.kHelperServer.application.db_synchronizer.required_port.DocumentRepository
 import com.luke.kHelperServer.domain.EventType
 import com.luke.kHelperServer.domain.WriteDbCommitedEvent
-import com.luke.kHelperServer.domain.supporting_language.event.SupportingLanguageCommittedEvent
 import com.luke.kHelperServer.domain.supporting_language.event.SupportingLanguageEvent
 import com.luke.kHelperServer.domain.supporting_language.read.SupportingLanguageDocument
 import org.slf4j.LoggerFactory
@@ -14,10 +13,10 @@ import java.util.*
 @Component
 class SupportingLanguageSynchronizer(
     private val supportingLanguageDocumentRepository: DocumentRepository<SupportingLanguageDocument>
-): EntitySynchronizer<SupportingLanguageCommittedEvent> {
+): EntitySynchronizer<SupportingLanguageEvent> {
     private val logger = LoggerFactory.getLogger(SupportingLanguageSynchronizer::class.java)
 
-    override fun getHandlingMessageType() = SupportingLanguageCommittedEvent::class
+    override fun getHandlingMessageType() = SupportingLanguageEvent::class
 
     override fun synchronizeReadDb(event: WriteDbCommitedEvent) {
         val convertedEvent = event as SupportingLanguageEvent
