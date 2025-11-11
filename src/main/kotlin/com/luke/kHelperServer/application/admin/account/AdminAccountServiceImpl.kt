@@ -3,14 +3,10 @@ package com.luke.kHelperServer.application.admin.account
 import com.luke.kHelperServer.application.account.AccountCommandService
 import com.luke.kHelperServer.application.account.dto.AccountDto
 import com.luke.kHelperServer.application.account.provided_port.AccountService
-import com.luke.kHelperServer.application.account.provided_port.AccountWriter
 import com.luke.kHelperServer.application.admin.account.provided_port.AdminAccountService
 import com.luke.kHelperServer.application.auth.auto_register.required_port.AuthorityCommandRepository
 import com.luke.kHelperServer.domain.account.Email
-import com.luke.kHelperServer.domain.account.PASSWORD_MAX_LENGTH
-import com.luke.kHelperServer.domain.account.PASSWORD_MIN_LENGTH
 import com.luke.kHelperServer.domain.account.request.SetToAdminRequest
-import com.luke.kHelperServer.domain.account.write.Account
 import com.luke.kHelperServer.domain.authority.ROLE_ADMIN
 import com.luke.kHelperServer.domain.authority.ROLE_SUPER_ADMIN
 import com.luke.kHelperServer.domain.authority.Role
@@ -42,7 +38,7 @@ class AdminAccountServiceImpl(
             ?: throw IllegalArgumentException("어드민 role을 찾을 수 없음")
 
         val targetAccount = accountCommandService.findByEmail(email)?.account ?: return null
-        targetAccount.authority = adminAuthority
+        targetAccount.updateAuthority(adminAuthority)
         return accountCommandService.saveAccount(targetAccount)
     }
 

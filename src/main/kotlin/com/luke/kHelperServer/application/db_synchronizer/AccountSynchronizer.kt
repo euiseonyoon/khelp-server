@@ -1,11 +1,10 @@
 package com.luke.kHelperServer.application.db_synchronizer
 
-import com.luke.kHelperServer.domain.account.event.AccountCommittedEvent
-import com.luke.kHelperServer.domain.account.event.AccountCreatedEvent
-import com.luke.kHelperServer.domain.account.event.AccountUpdatedEvent
+import com.luke.kHelperServer.domain.account.event.AccountEvent
 import com.luke.kHelperServer.domain.authority.read.AuthorityDocument
 import com.luke.kHelperServer.application.db_synchronizer.provided_port.EntitySynchronizer
 import com.luke.kHelperServer.application.db_synchronizer.required_port.DocumentRepository
+import com.luke.kHelperServer.domain.EventType
 import com.luke.kHelperServer.domain.WriteDbCommitedEvent
 import com.luke.kHelperServer.domain.account.read.AccountDocument
 import org.slf4j.LoggerFactory
@@ -16,20 +15,22 @@ import java.util.Date
 @Component
 class AccountSynchronizer(
     private val accountDocumentRepository: DocumentRepository<AccountDocument>
-) : EntitySynchronizer<AccountCommittedEvent> {
+) : EntitySynchronizer<AccountEvent> {
 
     private val logger = LoggerFactory.getLogger(AccountSynchronizer::class.java)
 
-    override fun getHandlingMessageType() = AccountCommittedEvent::class
+    override fun getHandlingMessageType() = AccountEvent::class
 
     override fun synchronizeReadDb(event: WriteDbCommitedEvent) {
-        when (val convertedEvent = event as AccountCommittedEvent) {
-            is AccountCreatedEvent -> handleAccountCreated(convertedEvent)
-            is AccountUpdatedEvent -> handleAccountUpdated(convertedEvent)
+        val event = event as AccountEvent
+        when (event.eventType) {
+            EventType.CREATED -> handlerCreated(event)
+            EventType.UPDATED -> handleUpdated(event)
+            EventType.DELETED -> handleUpdated(event)
         }
     }
 
-    private fun handleAccountCreated(event: AccountCreatedEvent) {
+    private fun handlerCreated(event: AccountEvent) {
         val account = event.account
         logger.info("Syncing Account created: id={}, email={}", account.id, account.email)
 
@@ -49,7 +50,7 @@ class AccountSynchronizer(
         logger.info("Account synced to MongoDB: accountId={}", account.id)
     }
 
-    private fun handleAccountUpdated(event: AccountUpdatedEvent) {
+    private fun handleUpdated(event: AccountEvent) {
         val account = event.account
         logger.info("Syncing Account updated: id={}, email={}", account.id, account.email)
 

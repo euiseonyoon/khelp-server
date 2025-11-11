@@ -4,11 +4,12 @@ import jakarta.persistence.Column
 import jakarta.persistence.MappedSuperclass
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.domain.AbstractAggregateRoot
 import java.time.OffsetDateTime
 
 
 @MappedSuperclass
-abstract class BaseEntity {
+abstract class BaseEntity: AbstractAggregateRoot<BaseEntity>() {
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: OffsetDateTime = OffsetDateTime.now()
